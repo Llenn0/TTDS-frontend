@@ -99,7 +99,7 @@
         </div>
         <div v-else class="result-table">
           <el-table :data="newSearchResult" stripe style="width: 100%">
-            <el-table-column prop="number" label="Author(s)" />
+            <el-table-column prop="id" label="Author(s)" />
             <el-table-column prop="name" label="Title" />
             <el-table-column prop="year" label="Year" />
             <el-table-column prop="language" label="Language" />
@@ -204,10 +204,10 @@ export default {
           ],
           newSearchResult: [
             {
-              number: 'PG72480'
+              id: 'PG72480'
             },
             {
-              number: 'PG70002'
+              id: 'PG70002'
             }
           ]
         }
@@ -231,7 +231,7 @@ export default {
           'query': this.inputValue
         })
 
-        this.newSearchResult = res.data.data
+        this.newSearchResult = res.data.docIDs
       },
       changeBtn(value){
         this.switchImgSearch = value
