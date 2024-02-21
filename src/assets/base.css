@@ -1,0 +1,35 @@
+
+@font-face {
+  font-family: 'Alibaba_PuHuiTi';
+  src: url(./Alibaba_PuHuiTi_2.0_55_Regular_55_Regular.ttf);
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Alibaba_PuHuiTi';
+}
+
+.el-button, .el-input__inner{
+  font-family: 'Alibaba_PuHuiTi' !important;
+}
+
+.search-input-container .el-input__wrapper{
+  border-top-left-radius: 0px !important;
+}
+
+.choose-year .el-input{
+  width: 100px !important;
+}
+
+.choose-year .el-input__wrapper{
+  border-radius: 12px !important;
+}
+
+.sort-by .el-input__wrapper{
+  border-radius: 12px !important;
+}
+.sort-by .el-input{
+  width: 100px !important;
+}
