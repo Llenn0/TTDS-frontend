@@ -202,14 +202,7 @@ export default {
               intro: 'A powerful, emotional debut novel told in the unforgettable voice of a young Nigerian woman who is trapped in a life of servitude but determined to get an education so that she can escape and choose her own future.'
             },
           ],
-          newSearchResult: [
-            {
-              id: 'PG72480'
-            },
-            {
-              id: 'PG70002'
-            }
-          ]
+          newSearchResult: []
         }
     },
     async mounted(){
@@ -230,8 +223,7 @@ export default {
         let res = await axios.post(pathString, {
           'query': this.inputValue
         })
-
-        this.newSearchResult = res.data.docIDs
+        this.newSearchResult = res.data.docIds
       },
       changeBtn(value){
         this.switchImgSearch = value
