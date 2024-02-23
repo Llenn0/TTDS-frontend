@@ -2,10 +2,13 @@
   "name": "movie-search-project",
   "version": "0.0.0",
   "private": true,
+  "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite --port 5419",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node index.js"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
@@ -13,12 +16,11 @@
     "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.3.4",
     "element-plus": "^2.2.36",
+    "express": "^4.17.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vuedraggable": "^4.1.0",
-    "vuex": "^4.0.2"
-  },
-  "devDependencies": {
+    "vuex": "^4.0.2",
     "@vitejs/plugin-vue": "^4.0.0",
     "vite": "^4.1.4"
   }
