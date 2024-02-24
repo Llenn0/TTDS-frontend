@@ -71,7 +71,7 @@
     <div class="search-result">
       <div class="result-container">
         <div class="result-num">
-          Books (500+)
+          Books ({{ newSearchResult.length }})
         </div>
         <div v-if="switchTab == 1" class="result-list">
           <div class="list-item" v-for="(item, index) in searchResult" :key="index">
