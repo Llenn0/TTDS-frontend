@@ -18,7 +18,7 @@
           <div v-if="showDist" class="dist-input">
             <el-form
               ref="distFormRef"
-              style="max-width: 350px"
+              style="max-width: 450px"
               :model="distForm"
               status-icon
               :rules="distFormRules"
@@ -26,7 +26,7 @@
               class="demo-ruleForm"
             >
               <el-form-item label="" prop="dist">
-                <el-input placeholder="dist" v-model="distForm.dist" autocomplete="off" />
+                <el-input placeholder="Enter maximum distance in numerical number from 0 to 20." v-model="distForm.dist" autocomplete="off" />
               </el-form-item>
             </el-form>
           </div>
