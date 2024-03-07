@@ -17,6 +17,11 @@ const router = createRouter({
       path: '/advancedSearch',
       name: 'advancedSearch',
       component: () => import('../views/AdvancedSearchPage.vue')
+    },
+    {
+      path: '/category',
+      name: 'category',
+      component: () => import('../views/CategoryPage.vue')
     }
   ]
 })

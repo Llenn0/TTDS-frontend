@@ -197,7 +197,7 @@ export default {
     data(){
         return {
           selectValue: 'Semantic Search',
-          inputPlaceholder: 'Enter your query here...',
+          inputPlaceholder: 'Search for title,author,ISBN...',
           showOptionValue: false,
           switchImgSearch: false,
           inputValue: '',
