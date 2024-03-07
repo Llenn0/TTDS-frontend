@@ -133,7 +133,9 @@
       <div v-if="showResultNum == 1" class="bookshelf-img">
         <BookShelfImg />
         <div class="bookshelf-img-text">
-          <span>Searching...</span>
+          <img style="width:30px;height:30px;" src="/rights.png" alt="">
+          <!-- <span>Searching...</span> -->
+          Bookshelf
         </div>
       </div>
       <div v-else-if="showResultNum == 2" class="result-empty">
