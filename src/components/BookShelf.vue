@@ -1,7 +1,7 @@
 <template>
     <div class="book-shelf-container">
         <div class="book-list">
-           <img v-for="(item, index) in bookList" :key="index" class="book" :src="item.cover" />
+           <img @click="gotoInfo(item)" v-for="(item, index) in bookIds" :key="index" class="book" @error="imgError" :src="`https://www.gutenberg.org/cache/epub/${item}/pg${item}.cover.medium.jpg`" />
         </div>
         <div class="bookshelf"></div>
     </div>
@@ -12,41 +12,36 @@ export default {
     name: 'BookShelf',
     data(){
         return {
-            bookList: [
-                {
-                    name: '',
-                    author: '',
-                    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1581128232l/50214741.jpg',
-                    year: '',
-                    language: 'English',
-                    intro: ''
-                },
-                {
-                    name: '',
-                    author: '',
-                    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1544204706l/42505366.jpg',
-                    year: '',
-                    language: 'English',
-                    intro: ''
-                },
-                {
-                    name: '',
-                    author: '',
-                    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1541621322l/42201395.jpg',
-                    year: '',
-                    language: 'English',
-                    intro: ''
-                },
-                {
-                    name: '',
-                    author: '',
-                    cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1548518877l/43263520._SY475_.jpg',
-                    year: '',
-                    language: 'English',
-                    intro: ''
-                }
-            ]
+            bookIds: []
         }
+    },
+    mounted(){
+        this.bookIds.push(this.createNum())
+        this.bookIds.push(this.createNum())
+        this.bookIds.push(this.createNum())
+        this.bookIds.push(this.createNum())
+        console.log('bookIds: ', this.bookIds)
+    },
+    methods:{
+        imgError(e){
+            e.srcElement.src = '/nocover.png'
+        },
+        gotoInfo(item){
+            window.open(`https://www.gutenberg.org/ebooks/${item}`)
+        },
+        createNum(){
+            let code = ''
+            let codeLength = 4
+            let random = [0,1,2,3,4,5,6,7,8,9]
+
+            for(let i = 0;i < codeLength; i++){
+                let index = Math.floor(Math.random() * 9)
+
+                code += random[index]
+            }
+
+            return code
+        },
     }
 }
 </script>
@@ -55,7 +50,7 @@ export default {
 .book-list{
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 30px;
 }
 .book{
     width: 130px;

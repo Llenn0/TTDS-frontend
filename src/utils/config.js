@@ -1,1 +1,1 @@
-export const URL = "https://ttds-gutenberg-fvyohsgcaq-ez.a.run.app"
+export const URL = "https://ttds-gutenberg-fvyohsgcaq-nw.a.run.app"
