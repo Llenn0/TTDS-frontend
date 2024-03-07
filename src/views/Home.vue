@@ -2,11 +2,7 @@
   <div class="home-container">
     <div class="home-content">
       <div class="bookshelf-img" @click="gotoCategory">
-        <BookShelfImg />
-        <div class="bookshelf-img-text">
-          <img class="right-img" src="/rights.png" alt="">
-          <span>Bookshelf</span>
-        </div>
+        <img src="/bookshelf.png" alt="">
       </div>
       <div class="light-content">
         <Light />
@@ -2515,8 +2511,8 @@ export default {
 }
 .bookshelf-img{
   position: absolute;
-  transform: scale(0.4);
-  right: -255px;
+  transform: scale(0.5);
+  right: -180px;
   top: 20px;
   cursor: pointer;
 }
@@ -2673,6 +2669,7 @@ export default {
   position: relative;
 }
 .input-style{
+  font-size: 16px;
   width: 600px;
   height: 45px;
   border-radius: 24px;

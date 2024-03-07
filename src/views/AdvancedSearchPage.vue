@@ -19,7 +19,13 @@
         </div>
       </div>
       <div class="search-result">
-        <div v-if="searchResult.length == 0" class="result-empty">
+        <div v-if="showResultNum == 1" class="bookshelf-img">
+          <BookShelfImg />
+          <div class="bookshelf-img-text">
+            <span>Searching...</span>
+          </div>
+        </div>
+        <div v-else-if="showResultNum == 2" class="result-empty">
           <div>
             <img class="empty-img" src="/nocover.png" alt="">
           </div>
@@ -44,7 +50,7 @@
         </div>
         <div v-else class="result-container">
           <div class="result-num">
-            Books ({{ searchResult.length }})
+            Books ({{ totalNum }})
           </div>
           <div v-if="switchTab == 1" class="result-list">
             <div @click="gotoInfo(item)" class="list-item" v-for="(item, index) in searchResult" :key="index">
@@ -70,10 +76,11 @@
               </div>
             </div>
           </div>
-          <el-pagination background @current-change="pageChange" layout="prev, pager, next" :total="totalNum" />
         </div>
-        <div class="right-content">
-        </div>
+        
+      </div>
+      <div class="pagenation-container">
+        <el-pagination background @current-change="pageChange" layout="prev, pager, next" :total="totalNum" />
       </div>
     </div>
   </template>
@@ -81,10 +88,12 @@
   <script>
   import axios from "../utils/request.js"
   import { ElMessage } from "element-plus"
-  
+  import BookShelfImg from '../components/BookShelfImg.vue'
+
   export default {
       data(){
           return {
+            showResultNum: 1,
             selectValue: 'Semantic Search',
             inputPlaceholder: 'Search for title,author,ISBN...',
             showOptionValue: false,
@@ -125,6 +134,7 @@
           this.searchResultFun()
         },
         async searchResultFun(){
+          this.showResultNum = 1
           let res = await axios.post('/advanced', {
             'author': this.advancedSearchData.author,
             'title': this.advancedSearchData.title,
@@ -136,6 +146,12 @@
           this.searchResult = res.data.books
           this.queryTime = res.data.queryTime
           this.totalNum = res.data.totalNum
+
+          if(this.searchResult.length == 0){
+            this.showResultNum = 2
+          } else {
+            this.showResultNum = 3
+          }
           console.log('res: ', res)
         },
         ellipsis(value){
@@ -145,6 +161,9 @@
           }
           return value
         },
+      },
+      components: {
+        BookShelfImg
       }
   }
   </script>
@@ -154,6 +173,26 @@
   @font-face {
     font-family: 'Zyphyte';
     src: url(../assets/Zyphyte.ttf);
+  }
+
+  .pagenation-container{
+    padding-left: 150px;
+    padding-bottom: 45px;
+  }
+
+  .bookshelf-img{
+    position: absolute;
+    transform: scale(0.4);
+    left: 152px;
+    top: 55px;
+    cursor: pointer;
+  }
+  .bookshelf-img-text{
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    transform: scale(1.5);
+    margin-top: 5px;
   }
   
   .fade{
@@ -338,6 +377,8 @@
   .search-result{
     display: flex;
     padding-bottom: 30px;
+    position: relative;
+    min-height: 500px;
   } 
   .result-container{
     width: 70vw;
