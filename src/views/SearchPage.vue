@@ -15,6 +15,21 @@
               <img class="btn-cancel-style" src="../assets/cha.png" alt="">
             </div>
           </div>
+          <div v-if="showDist" class="dist-input">
+            <el-form
+              ref="distFormRef"
+              style="max-width: 100px"
+              :model="distForm"
+              status-icon
+              :rules="distFormRules"
+              label-width="auto"
+              class="demo-ruleForm"
+            >
+              <el-form-item label="" prop="dist">
+                <el-input placeholder="dist" v-model="distForm.dist" autocomplete="off" />
+              </el-form-item>
+            </el-form>
+          </div>
           <div class="top-right-img">
             <img class="top-img" src="../assets/book.png" alt="">
           </div>
@@ -29,7 +44,7 @@
           <div class="tab-name">List</div>
         </div>
         <div class="query-time">
-          Search results in {{ queryTime }}s
+          Search results in {{ toFixedNum(queryTime) }}s
         </div>
       </div>
     </div>
@@ -115,7 +130,7 @@
       </div>
     </div>
     <div class="search-result">
-      <div v-if="searchResult.length !== 0" class="result-empty">
+      <div v-if="searchResult.length == 0" class="result-empty">
         <div>
           <img class="empty-img" src="/nocover.png" alt="">
         </div>
@@ -182,31 +197,12 @@ export default {
     data(){
         return {
           selectValue: 'Semantic Search',
-          inputPlaceholder: 'Search for title,author,ISBN...',
+          inputPlaceholder: 'Enter your query here...',
           showOptionValue: false,
           switchImgSearch: false,
           inputValue: '',
           switchTab: 1,
-          searchResult: [
-            {
-              id: '2a34',
-              title: 'The Girl with the Louding Voice',
-              author: 'Abi Dare',
-              cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1581128232l/50214741.jpg',
-              bookshelf: 'book shelf',
-              language: 'English',
-              subject: 'winds'
-            },
-            {
-              id: '234',
-              title: 'The Girl with the Louding Voice',
-              author: 'Abi Dare',
-              cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1581128232l/50214741.jpg',
-              bookshelf: 'book shelf',
-              language: 'English',
-              subject: 'winds'
-            },
-          ],
+          searchResult: [],
           languageValue: [],
           languageList: [
             "afrikaans",
@@ -2382,12 +2378,30 @@ export default {
           checkedOtherOptions: false,
           queryTime: '',
           totalNum: '',
-          currentPage: 1
+          currentPage: 1,
+          showDist: false,
+          distForm: {
+            dist: 3
+          },
+          distFormRules: {
+            dist: [
+              {
+                pattern: /^[0-9]{1,2}$/,
+                message: 'Invalid number',
+                trigger: 'blur'
+              }
+            ]
+          },
         }
     },
     async mounted(){
       this.inputValue = this.$route.query.query
       this.selectValue = this.$route.query.searchMethod
+      this.distForm.dist = this.$route.query.dist
+
+      if(this.$route.query.searchMethod == 'Phrase Search'){
+        this.showDist = true
+      }
 
       this.languageValue = JSON.parse(localStorage.getItem('language'))
       this.subjectValue = JSON.parse(localStorage.getItem('subject'))
@@ -2404,6 +2418,10 @@ export default {
       window.removeEventListener('keydown', this.handleKeyDown)
     },
     methods: {
+      toFixedNum(value){
+        value += ''
+        return value.length >= 4 ? value.substr(0, 5) : value;
+      },
       imgError(e){
         e.srcElement.src = '/nocover.png'
       },
@@ -2450,7 +2468,8 @@ export default {
           'languages': this.languageValue,
           'subjects': this.subjectValue,
           'page': this.currentPage,
-          'numPerPage': 10
+          'numPerPage': 10,
+          'dist': parseInt(this.distForm.dist)
         })
         this.searchResult = res.data.books
         this.queryTime = res.data.queryTime
@@ -2486,6 +2505,11 @@ export default {
           } else {
             this.inputPlaceholder = 'Search for title,author,ISBN...'
           }
+          if(value == 'Phrase Search'){
+            this.showDist = true
+          } else {
+            this.showDist = false
+          }
         }
       }
     }
@@ -2497,6 +2521,11 @@ export default {
 @font-face {
   font-family: 'Zyphyte';
   src: url(../assets/Zyphyte.ttf);
+}
+
+.dist-input{
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .fade{

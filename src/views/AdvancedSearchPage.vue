@@ -14,12 +14,12 @@
             <div class="tab-name">List</div>
           </div>
           <div class="query-time">
-            Search results in {{ queryTime }}s
+            Search results in {{ toFixedNum(queryTime) }}s
           </div>
         </div>
       </div>
       <div class="search-result">
-        <div v-if="searchResult.length !== 0" class="result-empty">
+        <div v-if="searchResult.length == 0" class="result-empty">
           <div>
             <img class="empty-img" src="/nocover.png" alt="">
           </div>
@@ -91,26 +91,7 @@
             switchImgSearch: false,
             inputValue: '',
             switchTab: 1,
-            searchResult: [
-              {
-                id: '2a34',
-                title: 'The Girl with the Louding Voice',
-                author: 'Abi Dare',
-                cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1581128232l/50214741.jpg',
-                bookshelf: 'book shelf',
-                language: 'English',
-                subject: 'winds'
-              },
-              {
-                id: '234',
-                title: 'The Girl with the Louding Voice',
-                author: 'Abi Dare',
-                cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1581128232l/50214741.jpg',
-                bookshelf: 'book shelf',
-                language: 'English',
-                subject: 'winds'
-              },
-            ],
+            searchResult: [],
             languageValue: [],
             subjectValue: [],
             showOtherOptions: false,
@@ -126,6 +107,10 @@
         this.searchResultFun()
       },
       methods: {
+        toFixedNum(value){
+          value += ''
+          return value.length >= 4 ? value.substr(0, 5) : value;
+        },
         imgError(e){
           e.srcElement.src = '/nocover.png'
         },
