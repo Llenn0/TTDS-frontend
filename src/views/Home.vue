@@ -1,6 +1,13 @@
 <template>
   <div class="home-container">
     <div class="home-content">
+      <div class="bookshelf-img" @click="gotoCategory">
+        <BookShelfImg />
+        <div class="bookshelf-img-text">
+          <img class="right-img" src="/rights.png" alt="">
+          <span>Bookshelf</span>
+        </div>
+      </div>
       <div class="light-content">
         <Light />
       </div>
@@ -21,6 +28,21 @@
         <div v-if="inputValue" @click="clearInput" class="cancel">
           <img class="btn-cancel-style" src="../assets/cha.png" alt="">
         </div>
+      </div>
+      <div v-if="showDist" class="dist-input">
+        <el-form
+          ref="distFormRef"
+          style="max-width: 100px"
+          :model="distForm"
+          status-icon
+          :rules="distFormRules"
+          label-width="auto"
+          class="demo-ruleForm"
+        >
+          <el-form-item label="" prop="dist">
+            <el-input placeholder="dist" v-model="distForm.dist" autocomplete="off" />
+          </el-form-item>
+        </el-form>
       </div>
       <div class="search-option">
         <div class="option-main" @click="showOption">
@@ -179,6 +201,7 @@ import { ArrowRight, Search, Clock, Collection, Setting, SwitchButton } from '@e
 import BookStyleComp from '../components/BookStyleComp.vue'
 import BookShelf from '../components/BookShelf.vue'
 import Light from '../components/Light.vue'
+import BookShelfImg from '../components/BookShelfImg.vue'
 
 export default {
   name: "Home",
@@ -2362,7 +2385,25 @@ export default {
       subjectValue: [],
       showOtherOptions: false,
       checkedOtherOptions: false,
-      advancedForm: {}
+      advancedForm: {
+        author: '',
+        languages: [],
+        subjects: [],
+        title: ''
+      },
+      distForm: {
+        dist: 3
+      },
+      distFormRules: {
+        dist: [
+          {
+            pattern: /^[0-9]{1,2}$/,
+            message: 'Invalid number',
+            trigger: 'blur'
+          }
+        ]
+      },
+      showDist: false
     }
   },
   mounted() {
@@ -2373,6 +2414,9 @@ export default {
     window.removeEventListener('keydown', this.handleKeyDown)
   },
   methods: {
+    gotoCategory(){
+      this.$router.push('/category')
+    },
     gotoAdvancedSearch(){
       this.$router.push('/advancedSearch')
       console.log('advancedForm: ', this.advancedForm)
@@ -2418,7 +2462,8 @@ export default {
         path: "/search",
         query: {
           "searchMethod": this.selectValue,
-          "query": this.inputValue
+          "query": this.inputValue,
+          "dist": this.distForm.dist
         }
       })
     },
@@ -2433,6 +2478,11 @@ export default {
           this.inputPlaceholder = 'Enter query with boolean operators AND, OR, NOT'
         } else {
           this.inputPlaceholder = 'Search for title,author,ISBN...'
+        } 
+        if(value == 'Phrase Search'){
+          this.showDist = true
+        } else {
+          this.showDist = false
         }
       }
     }
@@ -2440,7 +2490,8 @@ export default {
   components: {
     BookStyleComp,
     BookShelf,
-    Light
+    Light,
+    BookShelfImg
   }
 }
 </script>
@@ -2451,7 +2502,32 @@ export default {
   font-family: 'HYMengQing';
   src: url(../assets/Zyphyte.ttf);
 }
-
+.home-content{
+  position: relative;
+}
+.bookshelf-img{
+  position: absolute;
+  transform: scale(0.4);
+  right: -255px;
+  top: 20px;
+  cursor: pointer;
+}
+.bookshelf-img-text{
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
+  transform: scale(1.5);
+  margin-top: 5px;
+}
+.right-img{
+  width: 30px;
+  height: 30px;
+}
+.dist-input{
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
 .advanced-search-container{
   border: 1px solid #c3c3c3;
   margin-top: 20px;
