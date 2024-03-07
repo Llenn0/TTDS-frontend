@@ -18,7 +18,7 @@
           <div v-if="showDist" class="dist-input">
             <el-form
               ref="distFormRef"
-              style="max-width: 100px"
+              style="max-width: 350px"
               :model="distForm"
               status-icon
               :rules="distFormRules"
@@ -197,7 +197,7 @@ export default {
     data(){
         return {
           selectValue: 'Semantic Search',
-          inputPlaceholder: 'Search for title,author,ISBN...',
+          inputPlaceholder: 'Enter your search query here',
           showOptionValue: false,
           switchImgSearch: false,
           inputValue: '',
@@ -2387,7 +2387,7 @@ export default {
             dist: [
               {
                 pattern: /^([0-9]|1[0-9]|20)$/,
-                message: 'Invalid number',
+                message: 'Enter maximum distance in numerical number from 0 to 20.',
                 trigger: 'blur'
               }
             ]
@@ -2508,7 +2508,7 @@ export default {
           if(value == 'Boolean Search'){
             this.inputPlaceholder = 'Enter query with boolean operators AND, OR, NOT'
           } else {
-            this.inputPlaceholder = 'Search for title,author,ISBN...'
+            this.inputPlaceholder = 'Enter your search query here'
           }
           if(value == 'Phrase Search'){
             this.showDist = true
