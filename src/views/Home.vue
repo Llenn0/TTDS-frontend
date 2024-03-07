@@ -2392,12 +2392,12 @@ export default {
         title: ''
       },
       distForm: {
-        dist: 3
+        dist: ''
       },
       distFormRules: {
         dist: [
           {
-            pattern: /^[0-9]{1,2}$/,
+            pattern: /^([0-9]|1[0-9]|20)$/,
             message: 'Invalid number',
             trigger: 'blur'
           }

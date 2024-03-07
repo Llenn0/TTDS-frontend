@@ -2381,12 +2381,12 @@ export default {
           currentPage: 1,
           showDist: false,
           distForm: {
-            dist: 3
+            dist: ''
           },
           distFormRules: {
             dist: [
               {
-                pattern: /^[0-9]{1,2}$/,
+                pattern: /^([0-9]|1[0-9]|20)$/,
                 message: 'Invalid number',
                 trigger: 'blur'
               }
@@ -2463,13 +2463,18 @@ export default {
         } else if(this.selectValue == 'Phrase Search'){
           pathString = '/phrase'
         }
+        
+        let distSend = this.distForm.dist
+        if(this.distForm.dist == ''){
+          distSend = 3
+        }
         let res = await axios.post(pathString, {
           'query': this.inputValue,
           'languages': this.languageValue,
           'subjects': this.subjectValue,
           'page': this.currentPage,
           'numPerPage': 10,
-          'dist': parseInt(this.distForm.dist)
+          'dist': parseInt(distSend)
         })
         this.searchResult = res.data.books
         this.queryTime = res.data.queryTime
