@@ -26,7 +26,7 @@
               class="demo-ruleForm"
             >
               <el-form-item label="" prop="dist">
-                <el-input placeholder="Enter maximum distance in numerical number from 0 to 20." v-model="distForm.dist" autocomplete="off" />
+                <el-input placeholder="Enter maximum distance in numerical number from 1 to 20." v-model="distForm.dist" autocomplete="off" />
               </el-form-item>
             </el-form>
           </div>
@@ -2398,8 +2398,8 @@ export default {
           distFormRules: {
             dist: [
               {
-                pattern: /^([0-9]|1[0-9]|20)$/,
-                message: 'Enter maximum distance in numerical number from 0 to 20.',
+                pattern: /^([1-9]|1[1-9]|20)$/,
+                message: 'Enter maximum distance in numerical number from 1 to 20.',
                 trigger: 'blur'
               }
             ]
