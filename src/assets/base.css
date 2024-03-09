@@ -64,3 +64,19 @@ body{
 .el-input__wrapper.is-focus {
   box-shadow: 0 0 0 1px #148819 inset !important;
 }
+
+.el-slider__bar{
+  background-color: #148819 !important;
+}
+.el-slider__button{
+  border-color: #148819 !important;
+  width: 11px !important;
+  height: 11px !important;
+  
+} 
+.el-slider__input{
+  width: 90px !important;
+}
+.el-input-number--small .el-input-number__increase:hover{
+  color: #148819 !important;
+}
