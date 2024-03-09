@@ -26,19 +26,13 @@
         </div>
       </div>
       <div v-if="showDist" class="dist-input">
-        <el-form
-          ref="distFormRef"
-          style="max-width: 450px"
-          :model="distForm"
-          status-icon
-          :rules="distFormRules"
-          label-width="auto"
-          class="demo-ruleForm"
-        >
-          <el-form-item label="" prop="dist">
-            <el-input placeholder="Enter maximum distance in numerical number from 1 to 20." v-model="distForm.dist" autocomplete="off" />
-          </el-form-item>
-        </el-form>
+        <div class="dist-container">
+          <div class="dist-input-title">
+            Tolerance
+          </div>
+          <el-slider v-model="distValue" :min="1" :max="20" show-input size="small" />
+        </div>
+        
       </div>
       <div class="search-option">
         <div class="option-main" @click="showOption">
@@ -79,9 +73,6 @@
           <div class="option-line"></div>
         </div>
         <div v-show="showOtherOptions" class="show-search-options">
-          <!-- <div class="checkbox-style">
-            <el-checkbox v-model="checkedOtherOptions" label="Exact matching" />
-          </div> -->
           <div>
             <el-select
               v-model="languageValue"
@@ -2388,18 +2379,7 @@ export default {
         subjects: [],
         title: ''
       },
-      distForm: {
-        dist: ''
-      },
-      distFormRules: {
-        dist: [
-          {
-            pattern: /^([1-9]|1[1-9]|20)$/,
-            message: 'Enter maximum distance in numerical number from 1 to 20.',
-            trigger: 'blur'
-          }
-        ]
-      },
+      distValue: 3,
       showDist: false
     }
   },
@@ -2460,7 +2440,7 @@ export default {
         query: {
           "searchMethod": this.selectValue,
           "query": this.inputValue,
-          "dist": this.distForm.dist
+          "dist": this.distValue
         }
       })
     },
@@ -2499,6 +2479,11 @@ export default {
   font-family: 'HYMengQing';
   src: url(../assets/Zyphyte.ttf);
 }
+
+.dist-container{
+  width: 240px;
+}
+
 .option-line{
   position: absolute;
   height: 2px;

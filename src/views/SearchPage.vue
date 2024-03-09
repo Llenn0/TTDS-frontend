@@ -16,19 +16,12 @@
             </div>
           </div>
           <div v-if="showDist" class="dist-input">
-            <el-form
-              ref="distFormRef"
-              style="max-width: 450px"
-              :model="distForm"
-              status-icon
-              :rules="distFormRules"
-              label-width="auto"
-              class="demo-ruleForm"
-            >
-              <el-form-item label="" prop="dist">
-                <el-input placeholder="Enter maximum distance in numerical number from 1 to 20." v-model="distForm.dist" autocomplete="off" />
-              </el-form-item>
-            </el-form>
+            <div class="dist-container">
+              <div class="dist-input-title">
+                Tolerance
+              </div>
+              <el-slider v-model="distValue" :min="1" :max="20" show-input size="small" />
+            </div>    
           </div>
           <div class="top-right-img">
             <img class="top-img" src="../assets/book.png" alt="">
@@ -2392,24 +2385,13 @@ export default {
           totalNum: '',
           currentPage: 1,
           showDist: false,
-          distForm: {
-            dist: ''
-          },
-          distFormRules: {
-            dist: [
-              {
-                pattern: /^([1-9]|1[1-9]|20)$/,
-                message: 'Enter maximum distance in numerical number from 1 to 20.',
-                trigger: 'blur'
-              }
-            ]
-          },
+          distValue: 3
         }
     },
     async mounted(){
       this.inputValue = this.$route.query.query
       this.selectValue = this.$route.query.searchMethod
-      this.distForm.dist = this.$route.query.dist
+      this.distValue = parseInt(this.$route.query.dist)
 
       if(this.$route.query.searchMethod == 'Phrase Search'){
         this.showDist = true
@@ -2478,8 +2460,8 @@ export default {
           pathString = '/phrase'
         }
         
-        let distSend = this.distForm.dist
-        if(this.distForm.dist == ''){
+        let distSend = this.distValue
+        if(this.distValue == ''){
           distSend = 3
         }
         let res = await axios.post(pathString, {
@@ -2548,6 +2530,10 @@ export default {
 @font-face {
   font-family: 'Zyphyte';
   src: url(../assets/Zyphyte.ttf);
+}
+
+.dist-container{
+  width: 240px;
 }
 
 .pagenation-container{
