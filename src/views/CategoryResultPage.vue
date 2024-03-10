@@ -4,6 +4,9 @@
           <div class="search-title" @click="gotoHome">
             GutenTag
           </div>
+          <div class="right-title">
+            Displaying Bookshelf {{ category }}
+          </div>
       </div>
       <div class="tab-list-container">
         <div class="tabs-content">
@@ -170,6 +173,14 @@
   @font-face {
     font-family: 'Zyphyte';
     src: url(../assets/Zyphyte.ttf);
+  }
+
+  .right-title{
+    padding-top: 12px;
+    margin-left: 30px;
+    color: #295143;
+    font-family: 'HYMengQing';
+    font-size: 22px;
   }
 
   .pagenation-container{
