@@ -1,6 +1,11 @@
 <template>
+    
     <div class="category-container">
+        
         <div class="category-content">
+            <div class="home-img" @click="gotoHome">
+                <img src="/homeicon.jpg" alt="">
+            </div>
             <h1 class="title-style">
                 Detailed listings of all Bookshelves
             </h1>
@@ -93,6 +98,9 @@ export default {
         }
     },
     methods: {
+        gotoHome(){
+        this.$router.push('/')
+        },
         gotoResult(item){
             console.log(1111111111)
             this.$router.push({
@@ -131,5 +139,20 @@ export default {
     text-decoration: underline;
     cursor: pointer;
     margin-bottom: 6px;
+}
+.home-img{
+    
+  position: absolute;
+  transform: scale(0.04);
+  left: -250px;
+  top: -470px;
+  cursor: pointer;
+}
+.home-img-text{
+  display: flex;
+  justify-content: center;
+  font-size: 22px;
+  transform: scale(1.5);
+  margin-top: 5px;
 }
 </style>
