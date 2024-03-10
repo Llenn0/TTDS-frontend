@@ -148,6 +148,8 @@
               <li>
                 Check search options.
               </li>
+              <li>Your phrase query may be too long.</li>
+                <li>Timeout</li>
             </ul>
           </div>
         </div>
