@@ -107,11 +107,12 @@
             queryTime: '',
             totalNum: '',
             currentPage: 1,
-            advancedSearchData: {}
+            advancedSearchData: {},
+            category: ''
           }
       },
       async mounted(){
-        this.advancedSearchData = JSON.parse(localStorage.getItem('advancedSearchData')) 
+        this.category = this.$route.query.category
         this.searchResultFun()
       },
       methods: {
@@ -134,11 +135,8 @@
         },
         async searchResultFun(){
           this.showResultNum = 1
-          let res = await axios.post('/advanced', {
-            'author': this.advancedSearchData.author,
-            'title': this.advancedSearchData.title,
-            'subjects': this.advancedSearchData.subjects,
-            'languages': this.advancedSearchData.languages,
+          let res = await axios.post('/category', {
+            'category': this.category,
             'page': this.currentPage,
             'numPerPage': 10
           })

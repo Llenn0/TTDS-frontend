@@ -12,7 +12,7 @@
           <BookStyleComp />
         </div>
         <div class="home-title">
-          eBook
+          GutenTag
         </div>
       </div>
       <div class="input-content">
@@ -26,10 +26,10 @@
         </div>
       </div>
       <div v-if="showDist" class="dist-input">
+        <div class="dist-input-title">
+          <span>Tolerance</span> <span class="dist-etitle">(1=exact match, not recommended for multilingual search)</span>
+        </div>
         <div class="dist-container">
-          <div class="dist-input-title">
-            Tolerance
-          </div>
           <el-slider v-model="distValue" :min="1" :max="20" show-input size="small" />
         </div>
         
@@ -72,7 +72,7 @@
           Search options
           <div class="option-line"></div>
         </div>
-        <div v-show="showOtherOptions" class="show-search-options">
+        <div v-if="showOtherOptions" class="show-search-options">
           <div>
             <el-select
               v-model="languageValue"
@@ -82,6 +82,7 @@
               filterable
               clearable
               @change="setLocalLanguage"
+              @clear="clearLocalLanguage"
             >
               <el-option
                 v-for="(item, index) in languageList"
@@ -101,6 +102,7 @@
               filterable
               clearable
               @change="setLocalSubject"
+              @clear="clearLocalSubject"
             >
               <el-option
                 v-for="(item, index) in subjectList"
@@ -2407,8 +2409,14 @@ export default {
     setLocalLanguage(){
       localStorage.setItem('language',JSON.stringify(this.languageValue))
     },
+    clearLocalLanguage(){
+      localStorage.setItem('language',JSON.stringify([]))
+    },
     setLocalSubject(){
       localStorage.setItem('subject',JSON.stringify(this.subjectValue))
+    },
+    clearLocalSubject(){
+      localStorage.setItem('subject',JSON.stringify([]))
     },
     showOtherOptionsFun(){
       this.showOtherOptions = true
@@ -2478,6 +2486,11 @@ export default {
 @font-face {
   font-family: 'HYMengQing';
   src: url(../assets/Zyphyte.ttf);
+}
+
+.dist-etitle{
+  color: #878787;
+  font-size: 13px;
 }
 
 .dist-container{
@@ -2647,7 +2660,7 @@ export default {
   font-size: 70px;
   font-weight: bold;
   font-family: 'HYMengQing';
-  margin-left: 100px;
+  margin-left: 65px;
 }
 
 .input-content{

@@ -20,7 +20,6 @@ export default {
         this.bookIds.push(this.createNum())
         this.bookIds.push(this.createNum())
         this.bookIds.push(this.createNum())
-        console.log('bookIds: ', this.bookIds)
     },
     methods:{
         imgError(e){

@@ -75,13 +75,11 @@
       </div>
     </div>
     <div class="search-option-other">
-      <div v-show="!showOtherOptions" @click="showOtherOptionsFun" class="serach-left-title">
+      <div v-if="!showOtherOptions" @click="showOtherOptionsFun" class="serach-left-title">
         Search options
+        <div class="option-line"></div>
       </div>
-      <div v-show="showOtherOptions" class="show-search-options">
-        <!-- <div class="checkbox-style">
-          <el-checkbox v-model="checkedOtherOptions" label="Exact matching" />
-        </div> -->
+      <div v-else class="show-search-options">
         <div>
           <el-select
             v-model="languageValue"
@@ -91,6 +89,7 @@
             filterable
             clearable
             @change="setLocalLanguage"
+            @clear="clearLocalLanguage"
           >
             <el-option
               v-for="(item, index) in languageList"
@@ -110,6 +109,7 @@
             filterable
             clearable
             @change="setLocalSubject"
+            @clear="clearLocalSubject"
           >
             <el-option
               v-for="(item, index) in subjectList"
@@ -126,9 +126,7 @@
       <div v-if="showResultNum == 1" class="bookshelf-img">
         <BookShelfImg />
         <div class="bookshelf-img-text">
-          <img style="width:30px;height:30px;" src="/rights.png" alt="">
-          <!-- <span>Searching...</span> -->
-          Bookshelf
+          <span>Searching...</span>
         </div>
       </div>
       <div v-else-if="showResultNum == 2" class="result-empty">
@@ -2400,7 +2398,7 @@ export default {
       this.languageValue = JSON.parse(localStorage.getItem('language'))
       this.subjectValue = JSON.parse(localStorage.getItem('subject'))
 
-      if(this.languageValue != []){
+      if(this.languageValue.length !== 0){
         this.showOtherOptions = true
       }
 
@@ -2427,8 +2425,14 @@ export default {
       setLocalLanguage(){
         localStorage.setItem('language',JSON.stringify(this.languageValue))
       },
+      clearLocalLanguage(){
+        localStorage.setItem('language',JSON.stringify([]))
+      },
       setLocalSubject(){
         localStorage.setItem('subject',JSON.stringify(this.subjectValue))
+      },
+      clearLocalSubject(){
+        localStorage.setItem('subject',JSON.stringify([]))
       },
       gotoInfo(item){
         window.open(`https://www.gutenberg.org/ebooks/${item.id}`)
@@ -2533,6 +2537,23 @@ export default {
   src: url(../assets/Zyphyte.ttf);
 }
 
+.serach-left-title{
+  padding: 3px 10px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.3s;
+  position: relative;
+}
+.serach-left-title:hover{
+  background-color: #c9c9c9;
+}
+.option-line{
+  position: absolute;
+  height: 2px;
+  width: 111px;
+  border-bottom: 2px dashed #adadad;
+  bottom: 3px;
+}
 .dist-etitle{
   color: #878787;
   font-size: 13px;
