@@ -2420,7 +2420,17 @@ export default {
     },
     methods: {
       toFixedNum(value){
-        value += ''
+         // Convert value to a number to ensure correct comparison
+        const numericValue = Number(value);
+        
+        // Check if value is less than 0.001
+        if (numericValue < 0.001) {
+          return "< 0.001";
+        }
+
+        // Convert value back to string for length and substring operations
+        value = numericValue + '';
+    
         return value.length >= 4 ? value.substr(0, 5) : value;
       },
       imgError(e){
