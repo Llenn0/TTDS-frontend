@@ -2,7 +2,7 @@
   <div class="search-container">
     <div class="top-content">
         <div class="search-title" @click="gotoHome">
-            eBook
+          GutenTag
         </div>
         <div class="search-input">
           <div class="input-content">
@@ -16,10 +16,10 @@
             </div>
           </div>
           <div v-if="showDist" class="dist-input">
+            <div class="dist-input-title">
+              <span>Tolerance</span> <span class="dist-etitle">(1=exact match, not recommended for multilingual search)</span>
+            </div>
             <div class="dist-container">
-              <div class="dist-input-title">
-                Tolerance
-              </div>
               <el-slider v-model="distValue" :min="1" :max="20" show-input size="small" />
             </div>    
           </div>
@@ -2481,6 +2481,7 @@ export default {
           this.showResultNum = 3
         }
         console.log('res: ', res)
+        console.log('err_msg: ', res.data.err_msg)
       },
       changeBtn(value){
         this.switchImgSearch = value
@@ -2530,6 +2531,11 @@ export default {
 @font-face {
   font-family: 'Zyphyte';
   src: url(../assets/Zyphyte.ttf);
+}
+
+.dist-etitle{
+  color: #878787;
+  font-size: 13px;
 }
 
 .dist-container{
