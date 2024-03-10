@@ -46,6 +46,8 @@
                 <li>
                   Check search options.
                 </li>
+                <li>Your phrase query may be too long.</li>
+                <li>Timeout</li>
               </ul>
             </div>
           </div>
@@ -65,12 +67,9 @@
                   {{ item.author }}
                 </div>
                 <div class="list-item-intro">
-                  Subject: {{ ellipsis(item.subject) }}
+                    <span v-if="item.subject != ''">Subject:</span> {{ ellipsis(item.subject) }}
                 </div>
                 <div class="list-item-text">
-                  <div class="list-item-year">
-                    <span class="item-year-left">In BookShelf: </span> <span>{{ item.bookshelf }}</span> 
-                  </div>
                   <div class="list-item-language">
                     <span class="item-language-left">Language: </span> <span>{{ item.language }}</span> 
                   </div>
