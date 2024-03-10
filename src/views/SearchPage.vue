@@ -2396,10 +2396,20 @@ export default {
       }
 
       this.languageValue = JSON.parse(localStorage.getItem('language'))
+
       this.subjectValue = JSON.parse(localStorage.getItem('subject'))
 
-      if(this.languageValue.length !== 0){
+      if(this.languageValue == null || this.subjectValue == null){
+        this.showOtherOptions = false
+      } else if(this.languageValue.length !== 0 || this.subjectValue.length !== 0){
         this.showOtherOptions = true
+      }
+
+      if(this.languageValue == null){
+        this.languageValue = []
+      }
+      if(this.subjectValue == null){
+        this.subjectValue = []
       }
 
       window.addEventListener('keydown', this.handleKeyDown)
