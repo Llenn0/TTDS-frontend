@@ -4,6 +4,9 @@
         <div class="search-title" @click="gotoHome">
           GutenTag
         </div>
+        <div class="home-img" @click="gotoHome">
+                <img src="/homeicon.jpg" alt="">
+            </div>
         <div class="search-input">
           <div class="input-content">
             <input type="text" :placeholder="inputPlaceholder" v-model="inputValue" class="input-style">
@@ -2928,4 +2931,12 @@ export default {
 .empty-tips-title{
   font-size: 18px;
 }
+.home-img{
+    
+    position: absolute;
+    transform: scale(0.04);
+    left: -420px;
+    top: -430px;
+    cursor: pointer;
+  }
 </style>

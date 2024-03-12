@@ -4,8 +4,11 @@
           <div class="search-title" @click="gotoHome">
             GutenTag
           </div>
+          <div class="home-img" @click="gotoHome">
+                <img src="/homeicon.jpg" alt="">
+            </div>
           <div class="right-title">
-            Displaying Bookshelf {{ category }}
+            Displaying Bookshelf | {{ category }} |
           </div>
       </div>
       <div class="tab-list-container">
@@ -119,9 +122,19 @@
       },
       methods: {
         toFixedNum(value){
-          value += ''
-          return value.length >= 4 ? value.substr(0, 5) : value;
-        },
+         // Convert value to a number to ensure correct comparison
+        const numericValue = Number(value);
+        
+        // Check if value is less than 0.001
+        if (numericValue < 0.001) {
+          return "< 0.001";
+        }
+
+        // Convert value back to string for length and substring operations
+        value = numericValue + '';
+    
+        return value.length >= 4 ? value.substr(0, 5) : value;
+      },
         imgError(e){
           e.srcElement.src = '/nocover.png'
         },
@@ -521,5 +534,13 @@
   }
   .empty-tips-title{
     font-size: 18px;
+  }
+  .home-img{
+    
+    position: absolute;
+    transform: scale(0.04);
+    left: -420px;
+    top: -430px;
+    cursor: pointer;
   }
   </style>

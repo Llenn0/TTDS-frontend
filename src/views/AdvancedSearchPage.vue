@@ -4,6 +4,9 @@
           <div class="search-title" @click="gotoHome">
             GutenTag
           </div>
+          <div class="home-img" @click="gotoHome">
+                <img src="/homeicon.jpg" alt="">
+            </div>
       </div>
       <div class="tab-list-container">
         <div class="tabs-content">
@@ -522,5 +525,13 @@
   }
   .empty-tips-title{
     font-size: 18px;
+  }
+  .home-img{
+    
+    position: absolute;
+    transform: scale(0.04);
+    left: -300px;
+    top: -470px;
+    cursor: pointer;
   }
   </style>
