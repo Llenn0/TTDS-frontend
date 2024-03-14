@@ -8,7 +8,7 @@
                 <img src="/homeicon.jpg" alt="">
             </div>
           <div class="right-title">
-            Displaying Bookshelf | {{ category }} |
+            Displaying Bookshelf | {{ category }}|
           </div>
       </div>
       <div class="tab-list-container">
@@ -74,7 +74,9 @@
                 </div>
                 <div class="list-item-text">
                   <div class="list-item-language">
-                    <span class="item-language-left">Language: </span> <span>{{ item.language }}</span> 
+                    <span class="item-language-left">Language: </span> <span>{{ item.language.split(', ').map(language => 
+  language.charAt(0).toUpperCase() + language.slice(1)
+).join(', ')}}</span> 
                   </div>
                 </div>
               </div>
